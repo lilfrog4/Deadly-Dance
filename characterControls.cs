@@ -8,11 +8,9 @@ public class characterControls : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Transform chel;
     public float duration = 0.1f;
-    public bool chelMoving = false;
-    public bool moveInBuffer = false;
+    // public bool chelMoving = false;
     private bool movingLeft = false;
     private bool movingRight = false;
-    public bool chelMovingBuffer = false;
 
     public int currentlane = 2;
     public int nextlane;
@@ -91,21 +89,12 @@ public class characterControls : MonoBehaviour
         float te = 0;
         while (te < duration)
         {
-            if (te > duration * 0.5f)
-            {
-                chelMovingBuffer = true;
-            }
-            else
-            {
-                chelMovingBuffer = false;
-            }
             float t = te / duration;
             chel.position = Vector3.Lerp(warpPos, end, Mathf.SmoothStep(0f, 1f, t));
             te+= Time.deltaTime;
             yield return null;
         }
         chel.transform.position = end;
-        chelMovingBuffer = false;
     }
 
     IEnumerator frameCompare()
@@ -114,22 +103,23 @@ public class characterControls : MonoBehaviour
         yield return null;
         if (chel.transform.position.x == lastframe)
         {
-            chelMoving = false;
+            // chelMoving = false;
             movingLeft = false;
             movingRight = false;
         }
         else if (chel.position.x < lastframe)
         {
-            chelMoving = true;
+            // chelMoving = true;
             movingLeft = true;
             movingRight = false;
         }
         else if (chel.position.x > lastframe)
         {
-            chelMoving = true;
+            // chelMoving = true;
             movingLeft = false;
             movingRight = true;
         }
         yield return null;
     }
+
 }
